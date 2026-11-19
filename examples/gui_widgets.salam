@@ -1,5 +1,6 @@
-// Official 0.6.18 needs the C backend for native page lowering (fixed upstream in #3671).
-// salam run --backend=c --ui=native --stdlib-path="$PWD/std" examples/gui_widgets.salam
+// Official 0.6.18: use C for native page lowering (#3671) and pass the repository
+// root, not its std directory, for layout schema discovery (#3687).
+// salam run --backend=c --ui=native --stdlib-path="$PWD" examples/gui_widgets.salam
 mut count := 0
 
 page:
