@@ -1,4 +1,5 @@
-// salam run --ui=native examples/gui_widgets.salam --stdlib-path="$PWD/std"
+// Official 0.6.18 needs the C backend for native page lowering (fixed upstream in #3671).
+// salam run --backend=c --ui=native --stdlib-path="$PWD/std" examples/gui_widgets.salam
 mut count := 0
 
 page:
