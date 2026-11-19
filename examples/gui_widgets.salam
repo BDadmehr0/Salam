@@ -1,0 +1,17 @@
+import gui.widgets
+import gui.ui
+
+mut count := 0
+
+func view(): str:
+    message := widgets.Label("تعداد: " + count)
+    addButton := widgets.Button("add", "یکی اضافه کن", "increment")
+    ret widgets.Page("شمارنده", widgets.Card("شمارندهٔ من", message + addButton), true)
+end
+
+func main:
+    ui.Handle("increment", ():
+        count++
+    end)
+    ui.RunWith((): ret view() end, ui.Options { width = 480.0, height = 320.0 })
+end

@@ -1,0 +1,39 @@
+@en "widgets"
+@fa "ابزارک‌ها"
+package widgets
+
+import encoding.html
+
+// Compose child fragments from widgets; use Label for untrusted text.
+@en "Page"
+@fa "صفحه"
+pub func Page(title: str, children: str, rtl: bool): str:
+    dirName := rtl ? "rtl" : "ltr"
+    ret `<!doctype html><html dir="` + dirName + `"><head><meta charset="utf-8"><title>` + html.EscapeText(title) + `</title><style>
+body{margin:0;padding:24px;background:#edf3f4;color:#193438;font-family:sans-serif}
+.sw-card{background:#ffffff;border:1px solid #ccdcdd;border-radius:14px;padding:20px;margin-bottom:16px}
+.sw-card h2{margin:0;color:#17474b;font-size:22px}
+.sw-label{margin:12px 0;color:#36595c}
+.sw-button{background:#126567;color:#ffffff;border:0;border-radius:8px;padding:10px 18px}
+.sw-button:hover{background:#094f52}
+</style></head><body>` + children + `</body></html>`
+end
+
+@en "Card"
+@fa "کارت"
+pub func Card(title: str, children: str): str:
+    ret `<section class="sw-card"><h2>` + html.EscapeText(title) + `</h2>` + children + `</section>`
+end
+
+@en "Label"
+@fa "برچسب"
+pub func Label(text: str): str:
+    ret `<p class="sw-label">` + html.EscapeText(text) + `</p>`
+end
+
+// action is a developer-defined handler name registered with ui.Handle.
+@en "Button"
+@fa "دکمه"
+pub func Button(id: str, caption: str, action: str): str:
+    ret `<button class="sw-button" id="` + html.Escape(id) + `" onclick="` + html.Escape(action) + `()">` + html.EscapeText(caption) + `</button>`
+end
