@@ -19,7 +19,7 @@ pub component Card(title: str):
     end
 end
 
-pub component Label(text: str):
+pub component WidgetLabel(text: str):
     paragraph: color = #36595c content = text end
 end
 
