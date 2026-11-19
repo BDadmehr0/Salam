@@ -1,17 +1,23 @@
+// From the repository root: salam run examples/gui_widgets.salam --stdlib-path="$PWD/std"
 import gui.widgets
 import gui.ui
 
 mut count := 0
 
-func view(): str:
-    message := widgets.Label("تعداد: " + count)
-    addButton := widgets.Button("add", "یکی اضافه کن", "increment")
-    ret widgets.Page("شمارنده", widgets.Card("شمارندهٔ من", message + addButton), true)
+func counter(b: ui.Builder):
+    widgets.Label(b, "تعداد: " + count)
+    widgets.Button(b, "add", "یکی اضافه کن", ():
+        count++
+        ui.Invalidate()
+    end)
+end
+
+func view(b: ui.Builder):
+    widgets.Page(b, "شمارنده", true, (body: ui.Builder):
+        widgets.Card(body, "شمارندهٔ من", (card: ui.Builder): counter(card) end)
+    end)
 end
 
 func main:
-    ui.Handle("increment", ():
-        count++
-    end)
-    ui.RunWith((): ret view() end, ui.Options { width = 480.0, height = 320.0 })
+    ui.RunPageWith((): ret ui.NoPatches() end, (b: ui.Builder): view(b) end, ui.Options { width = 480.0, height = 320.0 })
 end
