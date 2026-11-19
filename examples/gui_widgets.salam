@@ -1,23 +1,22 @@
-// From the repository root: salam run examples/gui_widgets.salam --stdlib-path="$PWD/std"
-import gui.widgets
-import gui.ui
-
-mut count := 0
-
-func counter(b: ui.Builder):
-    widgets.Label(b, "تعداد: " + count)
-    widgets.Button(b, "add", "یکی اضافه کن", ():
-        count++
-        ui.Invalidate()
-    end)
+// salam run --ui=native examples/gui_widgets.salam --stdlib-path="$PWD/std"
+component Counter:
+    count := 0
+    Card: title = "شمارندهٔ من"
+        Label: text = "تعداد: " + count end
+        ActionButton:
+            name = "add"
+            caption = "یکی اضافه کن"
+            pressed = (): count++ println count end
+        end
+    end
 end
 
-func view(b: ui.Builder):
-    widgets.Page(b, "شمارنده", true, (body: ui.Builder):
-        widgets.Card(body, "شمارندهٔ من", (card: ui.Builder): counter(card) end)
-    end)
-end
-
-func main:
-    ui.RunPageWith((): ret ui.NoPatches() end, (b: ui.Builder): view(b) end, ui.Options { width = 480.0, height = 320.0 })
+page:
+    include = "../std/gui/widgets/widgets.salam"
+    title = "شمارنده"
+    lang = "farsi"
+    dir = "right to left"
+    Surface:
+        Counter: end
+    end
 end

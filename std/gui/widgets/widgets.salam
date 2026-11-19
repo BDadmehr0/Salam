@@ -1,56 +1,37 @@
-@en "widgets"
-@fa "ابزارک‌ها"
-package widgets
-
-import gui.ui
-import gui.style
-
-@en "Page"
-@fa "صفحه"
-pub func Page(b: ui.Builder, title: str, rtl: bool, children: func (ui.Builder)):
-    b.Title(title)
-    b.Dir(rtl ? "rtl" : "ltr")
-    b.Open("div")
-    b.SetText(ui.STATE_BASE, style.P_BACKGROUND, "#edf3f4")
-    b.SetText(ui.STATE_BASE, style.P_PADDING, "24")
-    children(b)
-    b.Close()
+// Shared page DSL components. Include this file inside a page block.
+pub component Surface:
+    box:
+        background = #edf3f4
+        padding = 24
+        gap = 16
+        content: end
+    end
 end
 
-@en "Card"
-@fa "کارت"
-pub func Card(b: ui.Builder, title: str, children: func (ui.Builder)):
-    b.Open("div")
-    b.SetText(ui.STATE_BASE, style.P_BACKGROUND, "#ffffff")
-    b.SetText(ui.STATE_BASE, style.P_PADDING, "20")
-    b.SetText(ui.STATE_BASE, style.P_RADIUS, "14")
-    b.SetText(ui.STATE_BASE, style.P_GAP, "12")
-    b.Open("h2")
-    b.Text(title)
-    b.Close()
-    children(b)
-    b.Close()
+pub component Card(title: str):
+    box:
+        background = #ffffff
+        radius = 14
+        padding = 20
+        gap = 12
+        heading: level = 2 content = title end
+        content: end
+    end
 end
 
-@en "Label"
-@fa "برچسب"
-pub func Label(b: ui.Builder, text: str):
-    b.Open("p")
-    b.SetText(ui.STATE_BASE, style.P_COLOR, "#36595c")
-    b.Text(text)
-    b.Close()
+pub component Label(text: str):
+    paragraph: color = #36595c content = text end
 end
 
-@en "Button"
-@fa "دکمه"
-pub func Button(b: ui.Builder, id: str, caption: str, action: func ()):
-    b.Open("button")
-    b.Id(id)
-    b.SetText(ui.STATE_BASE, style.P_BACKGROUND, "#126567")
-    b.SetText(ui.STATE_BASE, style.P_COLOR, "#ffffff")
-    b.SetText(ui.STATE_BASE, style.P_RADIUS, "8")
-    b.SetText(ui.STATE_HOVER, style.P_BACKGROUND, "#094f52")
-    b.On("click", action)
-    b.Text(caption)
-    b.Close()
+pub component ActionButton(name: str, caption: str, pressed: func ()):
+    button:
+        id = name
+        background = #126567
+        color = #ffffff
+        radius = 8
+        padding = 10, 18
+        hover: background = #094f52 end
+        click = (): pressed() end
+        content = caption
+    end
 end
