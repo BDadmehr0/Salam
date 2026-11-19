@@ -1,15 +1,5 @@
 // salam run --ui=native examples/gui_widgets.salam --stdlib-path="$PWD/std"
-component Counter:
-    count := 0
-    Card: title = "شمارندهٔ من"
-        Label: text = "تعداد: " + count end
-        ActionButton:
-            name = "add"
-            caption = "یکی اضافه کن"
-            pressed = (): count++ println count end
-        end
-    end
-end
+mut count := 0
 
 page:
     include = "../std/gui/widgets/widgets.salam"
@@ -17,6 +7,13 @@ page:
     lang = "farsi"
     dir = "right to left"
     Surface:
-        Counter: end
+        Card: title = "شمارندهٔ من"
+            Label: text = "تعداد: " + count end
+            ActionButton:
+                name = "add"
+                caption = "یکی اضافه کن"
+                pressed = (): count++ println count end
+            end
+        end
     end
 end
