@@ -1,0 +1,39 @@
+// Shared page DSL components. Include this file inside a page block.
+pub component Surface:
+    box:
+        background = #fff4ed
+        padding = 24
+        gap = 16
+        content: end
+    end
+end
+
+pub component Card(title: str):
+    box:
+        background = #ffffff
+        radius = 14
+        padding = 20
+        gap = 12
+        heading: level = 2 content = title end
+        content: end
+    end
+end
+
+pub component WidgetLabel(text: str):
+    paragraph:
+        content = text
+    end
+end
+
+pub component ActionButton(name: str, caption: str, pressed: func ()):
+    button:
+        id = name
+        background = #ff5c00
+        color = #ffffff
+        radius = 8
+        padding = 10, 18
+        hover: background = #e65000 end
+        click = (): pressed() end
+        content = caption
+    end
+end
